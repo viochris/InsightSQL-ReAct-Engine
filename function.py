@@ -42,20 +42,40 @@ def change_on_api_key():
 
 def reset_state():
     """
-    Triggered when the user clicks 'Reset Conversation'.
-    Performs a 'Soft Reset': Wipes the chat UI and resets the Agent's memory to a blank state, 
-    allowing for a fresh topic without breaking the Database connection.
+    Triggered by the 'Full System Reset' button.
+    Performs a 'Hard Reset': Wipes the Chat UI, destroys the Agent's Memory, 
+    and kills the Database Connection. 
+    Use this to start completely fresh (Tabula Rasa).
     """
-    # 1. Clear the message history list (Visual/UI)
+    # 1. Clear chat history (UI)
     st.session_state.messages = []
     
-    # 2. Reset the Agent's Memory (Logical/Backend)
-    # Setting this to None forces the app to re-initialize a fresh memory object 
-    # on the next run, ensuring no previous context lingers.
+    # 2. Reset the LLM, Toolkit, and Brain to force re-initialization
+    st.session_state.llm = None
+    st.session_state.toolkit = None
     st.session_state.agent_memory = None 
     
-    # Notify the user that the chat is clean
-    st.toast("Conversation history cleared!", icon="🧹")
+    # 3. Kill the Executor
+    st.session_state.pop("agent_executor", None)
+    
+    # Notify the user
+    st.toast("System fully reset. Memory wiped!", icon="🔄")
+
+def reset_chat_display():
+    """
+    Triggered by the 'Clear Screen Only' button.
+    Performs a 'Visual Reset': Removes chat messages from the screen ONLY.
+    CRITICAL: The Agent's memory is PRESERVED, so the AI still remembers 
+    what you discussed previously.
+    """
+    # 1. Clear the message history list (Visual/UI only)
+    st.session_state.messages = []
+    
+    # NOTE: We intentionally DO NOT touch 'agent_memory' here.
+    # This keeps the context alive.
+    
+    # Notify the user
+    st.toast("Screen cleared! Memory retained.", icon="🧹")
 
 def change_on_lan():
     """
