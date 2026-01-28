@@ -141,7 +141,7 @@ with st.sidebar:
         A: Since this is a specialized prototype, the database is currently linked via code. To use your own data:
         1. **Prepare your file:** Ensure you have a valid SQLite database file (e.g., `my_data.db`).
         2. **Upload:** Place the file in the **same root directory** as `app.py`.
-        3. **Modify Code:** Open `app.py` and locate the connection setup (approx. **Line 160**).
+        3. **Modify Code:** Open `app.py` and locate the connection setup (approx. **Line 185**).
         4. **Update URI:** Change the code from:  
            `db = SQLDatabase.from_uri("sqlite:///dresses.db")`  
            to:  
