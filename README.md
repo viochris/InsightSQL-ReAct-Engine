@@ -65,7 +65,7 @@ Using the `LangChain` ReAct framework, the agent follows a strict cognitive loop
 
 3.  **Setup Your Database**
     * Place your SQLite file (e.g., `dresses.db`) in the project root folder.
-    * **Crucial:** If your file is named differently, open `app.py` and modify the connection URI (around line 180):
+    * **Crucial:** If your file is named differently, open `app.py` and modify the connection URI (around line 185):
     
     ```python
     # Change 'dresses.db' to your actual filename
